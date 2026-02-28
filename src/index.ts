@@ -1,4 +1,12 @@
-import { Wallet } from 'xrpl'
+//import { Wallet } from 'xrpl'
+import dotenv from 'dotenv'
+dotenv.config({ override: true });
+import express from "express";
+
+import escrowRoutes from "./escrow/routes.js";
+
+
+/*
 import {
   createClient,
   step1ConnectAndFundWallet,
@@ -46,3 +54,15 @@ main().catch((err: unknown) => {
   console.error(err)
   process.exit(1)
 })
+*/
+console.log("XRPL RPC:", process.env.XRPL_RPC);
+const app = express();
+app.use(express.json());
+
+app.use("/escrow", escrowRoutes);
+
+app.get("/health", (_req, res) => res.json({ ok: true }));
+
+const port = Number(process.env.PORT || 3000);
+app.listen(port, () => console.log(`API listening on :${port}`));
+console.log("Loaded OPERATOR_SEED:", process.env.OPERATOR_SEED);
