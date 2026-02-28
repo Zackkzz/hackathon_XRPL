@@ -30,3 +30,7 @@ The integration test runs the full workflow against testnet and takes about a fe
 ## Requirements
 
 Node.js 18+
+
+Figma sample design for escrow payments in case a reference is needed: https://www.figma.com/make/kXGWvwx4c2GlP19j6EoZbr/Escrow-Payment-Booking-Screen?t=9P6Pm9sFhHjG5xZp-0
+
+
