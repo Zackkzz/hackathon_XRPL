@@ -27,6 +27,7 @@
     "xrpl": "^4.6.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^25.3.2",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
