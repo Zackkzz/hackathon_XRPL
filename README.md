@@ -14,10 +14,19 @@ Each step is its own function in `src/workflow.ts`.
 
 ## Run it
 
+### Backend (TypeScript)
 ```bash
 npm install
 npm start
 ```
+
+### Frontend (React.js)
+```bash
+npm install
+npm run dev
+```
+
+The frontend will be available at `http://localhost:3000`
 
 ## Test
 

@@ -4,6 +4,9 @@
   "description": "",
   "scripts": {
     "start": "tsx src/index.ts",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
     "test": "vitest run"
   },
   "repository": {
@@ -19,15 +22,19 @@
   },
   "homepage": "https://github.com/9oelM/xrp-aus-2026-workshop#readme",
   "dependencies": {
-    "express": "^5.2.1",
-    "uuid": "^13.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "xrpl": "^4.6.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/node": "^25.3.2",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
+    "vite": "^5.0.0",
     "vitest": "^4.0.18"
   }
 }
