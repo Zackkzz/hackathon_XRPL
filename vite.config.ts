@@ -7,12 +7,18 @@ export default defineConfig({
   plugins: [react()],
   root: 'frontend',
   server: {
-    port: 3000,
-    open: true
+    port: 5173,
+    open: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+      },
+    },
   },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './frontend')
-    }
-  }
+      '@': path.resolve(__dirname, './frontend'),
+    },
+  },
 })
