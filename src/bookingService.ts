@@ -39,3 +39,33 @@ export class BookingService {
     }
   }
 }
+import { XrplConnection } from './xrplClient';
+import { BookingStatus } from './types';
+
+export class BookingService {
+  private xrpl = new XrplConnection();
+
+  // This function is what Person C (Payments) will trigger
+  async verifyAndConfirm(bookingId: string, transactionHash: string) {
+    // 1. Connect to the ledger
+    const client = await this.xrpl.connect();
+
+    try {
+      // 2. Look up the transaction using the hash Person C gave us
+      const tx = await client.request({
+        command: "tx",
+        transaction: transactionHash
+      });
+
+      // 3. Simple Logic: If the transaction exists and was successful...
+      if (tx.result.validated) {
+        console.log(`[The Brain] Blockchain confirms payment for ${bookingId}!`);
+        // Here you would update your clipboard status to CONFIRMED
+        return true;
+      }
+    } catch (error) {
+      console.error("[The Brain] Could not find that transaction on the ledger.");
+    }
+    return false;
+  }
+}
