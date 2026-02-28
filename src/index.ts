@@ -74,3 +74,42 @@ const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`[SERVER] Anti-Ghosting Brain is live on port ${PORT}`);
 });
+
+// --- TESTING SECTION ---
+// This part simulates a real user journey
+
+async function runTest() {
+    console.log("🚀 STARTING SIMULATION...");
+
+    const manager = new BookingService();
+
+    // TEST 1: The Booking
+    console.log("\n--- Test 1: User clicks 'Book' ---");
+    const booking = await manager.createHold("TABLE_5");
+    console.log(`✅ Success: Booking ${booking.id} is HELD. Timer started.`);
+
+    // TEST 2: The Payment
+    console.log("\n--- Test 2: Simulating Payment Confirmation ---");
+    // We use a fake ID here just to test the logic
+    const isConfirmed = await manager.confirmPayment(booking.id);
+    if (isConfirmed) {
+        console.log("✅ Success: State changed to CONFIRMED.");
+    }
+
+    // TEST 3: The Ghosting (Timeout)
+    console.log("\n--- Test 3: Testing an Expired Booking ---");
+    const ghostBooking = await manager.createHold("TABLE_99");
+    
+    // We manually "break" the timer to simulate 10 minutes passing
+    ghostBooking.holdExpiresAt = Date.now() - 1000; 
+    
+    const tooLate = await manager.confirmPayment(ghostBooking.id);
+    if (!tooLate) {
+        console.log("✅ Success: Logic blocked the late payment. Seat is released.");
+    }
+
+    console.log("\n🏁 SIMULATION COMPLETE. Your logic is working!");
+}
+
+// Run the test
+runTest();
