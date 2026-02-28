@@ -152,9 +152,10 @@ export class XrplEscrow {
         const resp = await client.request({
             command: "account_objects",
             account: ownerAccount,
-            type: "escrow",
         });
-        return resp.result.account_objects ?? [];
+
+        const objs = resp.result.account_objects ?? [];
+        return objs.filter((o: any) => o.LedgerEntryType === "Escrow");
     }
 
     static async getEscrow(params: { client: xrpl.Client; owner: string; offerSequence: number }) {
