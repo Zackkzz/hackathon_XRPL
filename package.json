@@ -1,0 +1,30 @@
+{
+  "name": "xrp-aus-2026-workshop",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "tsx src/index.ts",
+    "test": "vitest run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/9oelM/xrp-aus-2026-workshop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/9oelM/xrp-aus-2026-workshop/issues"
+  },
+  "homepage": "https://github.com/9oelM/xrp-aus-2026-workshop#readme",
+  "dependencies": {
+    "xrpl": "^4.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.3.2",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "vitest": "^4.0.18"
+  }
+}
