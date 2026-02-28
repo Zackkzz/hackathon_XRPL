@@ -38,11 +38,7 @@ export class BookingService {
       return false;
     }
   }
-}
-import { XrplConnection } from './xrplClient';
-import { BookingStatus } from './types';
 
-export class BookingService {
   private xrpl = new XrplConnection();
 
   // This function is what Person C (Payments) will trigger
@@ -69,3 +65,5 @@ export class BookingService {
     return false;
   }
 }
+
+import { XrplConnection } from './xrplClient';

@@ -19,9 +19,12 @@
   },
   "homepage": "https://github.com/9oelM/xrp-aus-2026-workshop#readme",
   "dependencies": {
+    "express": "^5.2.1",
+    "uuid": "^13.0.0",
     "xrpl": "^4.6.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.6",
     "@types/node": "^25.3.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
