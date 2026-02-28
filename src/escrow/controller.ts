@@ -89,13 +89,14 @@ export class EscrowController {
             const ownerStr = String(req.body.owner ?? "").trim();
             const offerSeqNum = Number(req.body.offerSequence);
 
-            if (!ownerStr.startsWith("r")) throw new Error("owner must be an XRPL r... address");
+            if (!xrpl.isValidClassicAddress(ownerStr)) throw new Error("owner must be an XRPL r... address");
             if (!Number.isInteger(offerSeqNum)) throw new Error("offerSequence must be an integer");
 
              // use the already‑asserted constant so the parameter is a string
              const client = await XrplEscrow.connect(XRPL_RPC);
             try {
-                const finisher = xrpl.Wallet.fromSeed(process.env.ESCROW_OPERATOR_SEED!);
+                required(OPERATOR_SEED, "ESCROW_OPERATOR_SEED");
+                const finisher = xrpl.Wallet.fromSeed(OPERATOR_SEED);
 
                 // Build the tx explicitly and log it
                 const tx: xrpl.EscrowFinish = {
@@ -139,7 +140,7 @@ export class EscrowController {
 
             required(owner, "owner");
             required(offerSequence, "offerSequence");
-            console.log("process.env.OPERATOR_SEED:", process.env.OPERATOR_SEED);
+            console.log("process.env.OPERATOR_SEED:", process.env.ESCROW_OPERATOR_SEED);
 
             const client = await XrplEscrow.connect(XRPL_RPC);
             console.log("operatorSeed:", operatorSeed, typeof operatorSeed);
@@ -169,7 +170,7 @@ export class EscrowController {
         const XRPL_RPC = process.env.XRPL_RPC!;
         const OPERATOR_SEED = process.env.ESCROW_OPERATOR_SEED!;
         try {
-            const owner = Array.isArray(req.params.owner) ? req.params.owner[0] : req.params.owner;
+            const owner = String(req.params.owner ?? "").trim();
             required(owner, "owner");
 
             const client = await XrplEscrow.connect(XRPL_RPC);
@@ -192,7 +193,7 @@ export class EscrowController {
             const offerSequence = Number(req.params.seq);
 
             required(owner, "owner");
-            if (!owner.startsWith("r")) throw new Error("owner must be an XRPL r... address");
+            if (!xrpl.isValidClassicAddress(owner)) throw new Error("owner must be an XRPL r... address");
             if (!Number.isInteger(offerSequence)) throw new Error("seq must be an integer");
 
             const client = await XrplEscrow.connect(XRPL_RPC);
