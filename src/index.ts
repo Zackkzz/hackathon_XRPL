@@ -60,3 +60,17 @@ main().catch((err: unknown) => {
   console.error(err)
   process.exit(1)
 })
+
+import express from 'express';
+import bookingRoutes from './routes';
+
+const app = express();
+app.use(express.json()); // Lets the app read the data sent from the website
+
+// Use your new booking routes
+app.use('/api', bookingRoutes);
+
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`[SERVER] Anti-Ghosting Brain is live on port ${PORT}`);
+});
