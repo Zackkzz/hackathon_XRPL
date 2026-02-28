@@ -1,3 +1,15 @@
+import { BookingService } from './bookingService';
+
+// Initialize your "Brain"
+const bookingManager = new BookingService();
+
+// Example: When the frontend calls "Book Now"
+async function handleUserBooking(eventId: string) {
+  const booking = await bookingManager.createHold(eventId);
+  // Send this booking ID to Person C (Payments)
+  return booking;
+}
+
 import { Wallet } from 'xrpl'
 import {
   createClient,
@@ -42,7 +54,23 @@ async function main(): Promise<void> {
   await step6Exit(client)
 }
 
+
+
 main().catch((err: unknown) => {
   console.error(err)
   process.exit(1)
 })
+
+import express from 'express';
+import bookingRoutes from './routes';
+
+const app = express();
+app.use(express.json()); // Lets the app read the data sent from the website
+
+// Use your new booking routes
+app.use('/api', bookingRoutes);
+
+const PORT = 3000;
+app.listen(PORT, () => {
+    console.log(`[SERVER] Anti-Ghosting Brain is live on port ${PORT}`);
+});
