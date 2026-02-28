@@ -1,3 +1,15 @@
+import { BookingService } from './bookingService';
+
+// Initialize your "Brain"
+const bookingManager = new BookingService();
+
+// Example: When the frontend calls "Book Now"
+async function handleUserBooking(eventId: string) {
+  const booking = await bookingManager.createHold(eventId);
+  // Send this booking ID to Person C (Payments)
+  return booking;
+}
+
 import { Wallet } from 'xrpl'
 import {
   createClient,
@@ -41,6 +53,8 @@ async function main(): Promise<void> {
   // Step 6 — clean up and exit
   await step6Exit(client)
 }
+
+
 
 main().catch((err: unknown) => {
   console.error(err)
