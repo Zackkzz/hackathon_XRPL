@@ -54,6 +54,9 @@ function App() {
   const [confirmMessage, setConfirmMessage] = useState<string | null>(null)
   const [confirmError, setConfirmError] = useState<string | null>(null)
 
+  // Category dropdown state
+  const [selectedCategory, setSelectedCategory] = useState<string>('')
+
   // Countdown effect
   React.useEffect(() => {
     if (!currentBooking) {
@@ -195,8 +198,35 @@ function App() {
     return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
   }
 
+  const handleCategorySubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (selectedCategory) {
+      console.log('Selected category:', selectedCategory)
+      // Handle category selection here
+    }
+  }
+
   return (
     <div className="app">
+      <div className="category-selector">
+        <form onSubmit={handleCategorySubmit} className="category-form">
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="category-dropdown"
+          >
+            <option value="">Select Category</option>
+            <option value="hospitality">1. Hospitality</option>
+            <option value="restaurants">2. Restaurants</option>
+            <option value="aviation">3. Aviation</option>
+            <option value="real-estate">4. Real Estate</option>
+          </select>
+          <button type="submit" className="category-submit-button">
+            Submit
+          </button>
+        </form>
+      </div>
+
       <header className="header">
         <h1 className="title">XRP Ledger Escrow</h1>
         <p className="subtitle">Secure payment booking with smart escrow features</p>
