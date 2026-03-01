@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { BookingService } from './bookingService';
 
 // Initialize your "Brain"
@@ -11,6 +12,17 @@ async function handleUserBooking(eventId: string) {
 }
 
 import { Wallet } from 'xrpl'
+=======
+//import { Wallet } from 'xrpl'
+import dotenv from 'dotenv'
+dotenv.config({ override: true });
+import express from "express";
+
+import escrowRoutes from "./escrow/routes.js";
+
+
+/*
+>>>>>>> Hasitha-branch
 import {
   createClient,
   step1ConnectAndFundWallet,
@@ -60,6 +72,7 @@ main().catch((err: unknown) => {
   console.error(err)
   process.exit(1)
 })
+<<<<<<< HEAD
 
 import express from 'express';
 import bookingRoutes from './routes';
@@ -113,3 +126,17 @@ async function runTest() {
 
 // Run the test
 runTest();
+=======
+*/
+console.log("XRPL RPC:", process.env.XRPL_RPC);
+const app = express();
+app.use(express.json());
+
+app.use("/escrow", escrowRoutes);
+
+app.get("/health", (_req, res) => res.json({ ok: true }));
+
+const port = Number(process.env.PORT || 3000);
+app.listen(port, () => console.log(`API listening on :${port}`));
+console.log("Loaded OPERATOR_SEED:", process.env.OPERATOR_SEED);
+>>>>>>> Hasitha-branch
